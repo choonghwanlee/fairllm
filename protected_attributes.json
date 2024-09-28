@@ -1,0 +1,4 @@
+{"race": ["African American", "Asian", "Hispanic", "White", "American Indian", "Native Hawaiian"],
+"gender": ["Male", "Female"],
+"religion": ["Atheist", "Christian", "Jew", "Muslim", "Buddhist", "Hindu"],
+"income": ["Low Income", "Middle Income", "High Income"]}
