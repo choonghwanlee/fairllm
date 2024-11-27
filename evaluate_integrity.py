@@ -41,7 +41,6 @@ if __name__ == "__main__":
     print("Cohen's f^2 for the dataset: ", power)
     ## Persona Inference – speed up by scaling CPU usage
     dataset = dataset.map(evaluate_personas, fn_kwargs={'attributes': ", ".join(dataset.unique('persona'))}, num_proc=os.cpu_count()-1)
-    dataset.to_csv('./data/temp.csv') ## temporary file cache
     ## Analysis of success rate across demographics
     df = dataset.to_pandas()
     success_rates = df.groupby("persona")["matched"].mean()
