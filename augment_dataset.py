@@ -8,8 +8,6 @@ from datasets import load_dataset
 from utils import clean_icliniq
 import argparse
 
-
-
 def apply_with_system(example, client, persona_list: list[str]):
     '''
     Role prompting via system prompts
@@ -30,7 +28,7 @@ def apply_with_system(example, client, persona_list: list[str]):
             model="gpt-4o-mini",
             messages= [
                 {"role": "system", "content": augment_with_system.format(persona=persona)},
-                {"role": "user", "content": example['input'][0]}
+                {"role": "user", "content": f"Rephrase the following in your own voice. Just respond with the rephrased version: {example['input'][0]}"}
             ],
             max_completion_tokens = 512,
             temperature = 0,

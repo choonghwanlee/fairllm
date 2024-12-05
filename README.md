@@ -39,6 +39,8 @@ Then, make sure you have all the dependencies by creating a virtual environment 
 
 Afterwards, run `python augment_dataset.py` to run PABE augmentation. It will download the resulting dataset as a CSV file in /data.
 
+You can run fairness evaluation by running `python evaluate_fairness.py`. Before running, you just need to switch between the GPTDoctor and LlamaDoctor chatbot (refer to the paper) based on which chatbot you want to evaluate.
+
 # Stylistic Integrity
 
 One major assumption of the PABE framework is that we can encode meaningful and realistic stylistic properties of a demographic's speech via zero-shot text style transfer. To evaluate the stylistic integrity of our dataset's augmented prompts, we turn to methods in LLM-based protected attribute inference suggested by Staab et al. (https://arxiv.org/pdf/2310.07298).

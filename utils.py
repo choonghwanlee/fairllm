@@ -5,6 +5,9 @@ import statsmodels.stats.power as smp
 import json
 import os
 from pydantic import BaseModel
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def clean_icliniq(dataset: Dataset):
     '''
@@ -39,6 +42,32 @@ def power_analysis(power: float, alpha: float, num_classes: int, n: int):
     analysis = smp.FTestAnovaPower()
     effect_size = analysis.solve_power(effect_size=None, nobs=n, alpha=alpha, power=power, k_groups=num_classes)
     return effect_size
+
+def plot_tukey(df: pd.DataFrame, candidate: str):
+    plt.figure(figsize=(10, 6))
+    plt.errorbar(
+        df['mean_diff'],
+        df['comparison'],
+        xerr=[df['mean_diff'] - df['lower_ci'], df['upper_ci'] - df['mean_diff']],
+        fmt='o',
+        color='blue'
+    )
+    plt.axvline(0, color='gray', linestyle='--')
+    plt.title('Tukey HSD Pairwise Comparisons')
+    plt.xlabel('Mean Difference with 95% CI')
+    plt.ylabel('Group Comparison')
+    plt.savefig(f'{candidate}_tukeyhsd_comparisons.png', dpi=300, bbox_inches='tight')  # Save the plot
+
+
+def plot_f1boxplot(df: pd.DataFrame, candidate: str):
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='persona', y=f'f1_{candidate}', data=df, palette='Set2')
+    plt.title('Boxplot of F1 Scores by Race')
+    plt.ylabel('F1 Score')
+    plt.xlabel('Race')
+    plt.savefig('boxplot_f1_scores.png', dpi=300, bbox_inches='tight')  # Save the plot
+
+
 
 class PersonaInference(BaseModel):
     guess: str
